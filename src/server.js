@@ -30,7 +30,7 @@ export const setupServer = () => {
   app.get('/', (req, res) => {
     res.json({
       status: 200,
-      message: 'Welcome to Money Guard API!',
+      message: 'Welcome to Money Guard API!!!',
       timestamp: new Date().toISOString(),
     });
   });
