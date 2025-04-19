@@ -9,7 +9,7 @@ import { errorHandler } from './middlewares/errorHandler.js';
 
 dotenv.config();
 
-const PORT = Number(getEnvVar('PORT', 3000));
+const PORT = Number(getEnvVar('PORT', 3030));
 
 export const setupServer = () => {
   const app = express();
@@ -30,7 +30,7 @@ export const setupServer = () => {
   app.get('/', (req, res) => {
     res.json({
       status: 200,
-      message: 'Welcome to Money Guard API!!!',
+      message: 'Welcome to Test Money Guard API!!!',
       timestamp: new Date().toISOString(),
     });
   });
