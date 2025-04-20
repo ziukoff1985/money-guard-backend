@@ -2,7 +2,7 @@
   "openapi": "3.1.0",
   "info": {
     "version": "1.0.0",
-    "title": "Students app",
+    "title": "Money Guard App",
     "license": {
       "name": "Apache 2.0",
       "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
@@ -23,12 +23,12 @@
       "description": "Auth operations."
     },
     {
-      "name": "Transactions",
-      "description": "Operations about transactions."
-    },
-    {
       "name": "Users",
       "description": "Operations about users."
+    },
+    {
+      "name": "Transactions",
+      "description": "Operations about transactions."
     },
     {
       "name": "Categories",
@@ -39,12 +39,496 @@
       "description": "Operations about summary."
     }
   ],
-  "paths": null,
+  "paths": {
+    "/transactions": {
+      "get": {
+        "tags": [
+          "Transactions"
+        ],
+        "summary": "Get list of transactions",
+        "operationId": "getTransactions",
+        "description": "Get list of transactions",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Get all transactions",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "status",
+                    "message",
+                    "data"
+                  ],
+                  "properties": {
+                    "status": {
+                      "type": "integer",
+                      "example": 200
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Successfully found transactions!"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "data": {
+                          "type": "array",
+                          "items": {
+                            "$ref": "#/components/schemas/transaction"
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/401"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Transactions"
+        ],
+        "summary": "Create transactions",
+        "operationId": "createTransactions",
+        "description": "Create a transaction with payload",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "transactionType",
+                  "categoryId",
+                  "summ"
+                ],
+                "properties": {
+                  "transactionType": {
+                    "description": "Transaction type",
+                    "type": "string",
+                    "enum": [
+                      "income",
+                      "expense"
+                    ]
+                  },
+                  "categoryId": {
+                    "description": "Transaction category id",
+                    "type": "string",
+                    "example": "65e4decdd286b30065d54af9"
+                  },
+                  "summ": {
+                    "description": "Transaction amount",
+                    "type": "number",
+                    "format": "float",
+                    "minimum": 0.01,
+                    "example": 100
+                  },
+                  "date": {
+                    "type": "string",
+                    "format": "date-time",
+                    "description": "Date of the transaction",
+                    "example": "2025-04-20T10:30:00.000Z"
+                  },
+                  "comment": {
+                    "type": "string",
+                    "maxLength": 300,
+                    "description": "Optional comment for the transaction",
+                    "example": "Household products"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Creates a transaction",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "status",
+                    "message",
+                    "data"
+                  ],
+                  "properties": {
+                    "status": {
+                      "type": "integer",
+                      "example": 201
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Successfully created a transaction!"
+                    },
+                    "data": {
+                      "type": "object",
+                      "$ref": "#/components/schemas/transaction"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/400"
+          },
+          "401": {
+            "$ref": "#/components/responses/401"
+          }
+        }
+      }
+    },
+    "/transactions/{id}": {
+      "patch": {
+        "tags": [
+          "Transactions"
+        ],
+        "summary": "Update transaction by id",
+        "operationId": "updateTransaction",
+        "description": "Update transaction by id with payload",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": "65ca67e7ae7f10c88b598384"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "transactionType": {
+                    "description": "Transaction type",
+                    "type": "string",
+                    "enum": [
+                      "income",
+                      "expense"
+                    ]
+                  },
+                  "categoryId": {
+                    "description": "Transaction category id",
+                    "type": "string",
+                    "example": "65e4decdd286b30065d54af9"
+                  },
+                  "summ": {
+                    "description": "Transaction amount",
+                    "type": "number",
+                    "format": "float",
+                    "minimum": 0.01,
+                    "example": 100
+                  },
+                  "date": {
+                    "type": "string",
+                    "format": "date-time",
+                    "description": "Date of the transaction",
+                    "example": "2025-04-20T10:30:00.000Z"
+                  },
+                  "comment": {
+                    "type": "string",
+                    "maxLength": 300,
+                    "description": "Optional comment for the transaction",
+                    "example": "Household products"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Get transaction by id",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "status",
+                    "message",
+                    "data"
+                  ],
+                  "properties": {
+                    "status": {
+                      "type": "integer",
+                      "example": 200
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Successfully patched a transaction!"
+                    },
+                    "data": {
+                      "type": "object",
+                      "$ref": "#/components/schemas/transaction"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/400"
+          },
+          "401": {
+            "$ref": "#/components/responses/401"
+          },
+          "404": {
+            "$ref": "#/components/responses/404"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Transactions"
+        ],
+        "summary": "Delete transaction by id",
+        "operationId": "deleteTransaction",
+        "description": "Delete transaction by id",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": "65ca67e7ae7f10c88b598384"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Delete transaction by id",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "status"
+                  ],
+                  "properties": {
+                    "status": {
+                      "type": "integer",
+                      "example": 204
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/401"
+          },
+          "404": {
+            "$ref": "#/components/responses/404"
+          }
+        }
+      }
+    }
+  },
   "components": {
     "securitySchemes": {
       "bearerAuth": {
         "type": "http",
         "scheme": "bearer"
+      }
+    },
+    "schemas": {
+      "transaction": {
+        "type": "object",
+        "required": [
+          "_id",
+          "transactionType",
+          "categoryId",
+          "summ",
+          "userId"
+        ],
+        "properties": {
+          "_id": {
+            "description": "Transaction id",
+            "type": "string",
+            "example": "65e4decdd286b30065d54af9"
+          },
+          "transactionType": {
+            "description": "Transaction type",
+            "type": "string",
+            "enum": [
+              "income",
+              "expense"
+            ]
+          },
+          "categoryId": {
+            "description": "Transaction category id",
+            "type": "string",
+            "example": "65e4decdd286b30065d54af9"
+          },
+          "summ": {
+            "description": "Transaction amount",
+            "type": "number",
+            "format": "float",
+            "minimum": 0.01,
+            "example": 100
+          },
+          "date": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Date of the transaction",
+            "example": "2025-04-20T10:30:00.000Z"
+          },
+          "comment": {
+            "type": "string",
+            "maxLength": 300,
+            "description": "Optional comment for the transaction",
+            "example": "Household products"
+          },
+          "userId": {
+            "description": "Transaction's user id",
+            "type": "string",
+            "example": "65e4decdd286b30065d54af9"
+          }
+        }
+      }
+    },
+    "responses": {
+      "400": {
+        "description": "Bad Request error",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "required": [
+                "status",
+                "message",
+                "data"
+              ],
+              "properties": {
+                "status": {
+                  "type": "integer",
+                  "example": 400
+                },
+                "message": {
+                  "type": "string",
+                  "example": "BadRequestError"
+                },
+                "data": {
+                  "type": "object",
+                  "required": [
+                    "message"
+                  ],
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "Missing required fields"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "401": {
+        "description": "Unauthorized error",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "required": [
+                "status",
+                "message",
+                "data"
+              ],
+              "properties": {
+                "status": {
+                  "type": "integer",
+                  "example": 401
+                },
+                "message": {
+                  "type": "string",
+                  "example": "UnauthorizedError"
+                },
+                "data": {
+                  "type": "object",
+                  "required": [
+                    "message"
+                  ],
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "Access token expired"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "404": {
+        "description": "Not found error",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "required": [
+                "status",
+                "message",
+                "data"
+              ],
+              "properties": {
+                "status": {
+                  "type": "integer",
+                  "example": 404
+                },
+                "message": {
+                  "type": "string",
+                  "example": "NotFoundError"
+                },
+                "data": {
+                  "type": "object",
+                  "required": [
+                    "message"
+                  ],
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "Transaction not found"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
       }
     }
   }

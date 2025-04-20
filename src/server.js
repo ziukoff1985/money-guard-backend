@@ -7,7 +7,7 @@ import cookieParser from 'cookie-parser';
 import { getEnvVar } from './utils/getEnvVar.js';
 import { notFoundHandler } from './middlewares/notFoundHandler.js';
 import { errorHandler } from './middlewares/errorHandler.js';
-import authRouter from './routes/auth.js';
+import router from './routes/index.js';
 
 dotenv.config();
 
@@ -38,7 +38,7 @@ export const setupServer = () => {
     });
   });
 
-  app.use(authRouter);
+  app.use(router);
 
   app.use('*', notFoundHandler);
 
