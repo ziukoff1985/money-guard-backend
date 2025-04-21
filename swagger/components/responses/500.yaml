@@ -1,0 +1,21 @@
+description: Internal server error
+content: 
+  application/json: 
+    schema:
+      type: object
+      required: 
+        - status
+        - message
+        - data
+      properties: 
+        status: 
+          type: integer
+          example: 500
+        data:
+          type: object
+          required: 
+            - message
+          properties:
+            message:
+              type: string
+              example: An unexpected error occured in the server, please try again later

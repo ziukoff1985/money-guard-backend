@@ -1,0 +1,39 @@
+tags:
+  - Auth
+summary: Refresh user session
+operationId: refreshUsersSession
+description: Refresh user session
+security: []
+responses:
+  '200':
+    description: Session refreshed successfully
+    content: 
+      application/json:
+        schema:
+          type: object
+          required:
+            - status
+            - message
+            - data
+          properties: 
+            status: 
+              type: integer
+              example: 200
+            message: 
+              type: string
+              example: 'Successfully refreshed a session!'
+            data:
+              type: object
+              properties:
+                accessToken:
+                  type: string
+                  example: 'newAccessToken123'
+    headers:
+      Set-Cookie:
+        schema:
+          type: string
+          example: 'refreshToken=newRefreshToken123; HttpOnly; Expires=Wed, 01 Jan 2025 00:00:00 GMT; sessionId=newSessionId123; HttpOnly; Expires=Wed, 01 Jan 2025 00:00:00 GMT'
+  '401':
+    $ref: '../../components/responses/401.yaml'
+  '500': 
+    $ref: '../../components/responses/500.yaml'
