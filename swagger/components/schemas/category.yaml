@@ -1,0 +1,14 @@
+type: object
+properties:
+  name:
+    type: string
+    example: Products
+  type:
+    type: string
+    enum:
+      - income
+      - expense
+    example: expense
+required:
+  - name
+  - type
