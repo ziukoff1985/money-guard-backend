@@ -22,14 +22,12 @@ export const createTransactionSchema = Joi.object({
 
   comment: Joi.string().max(300).optional(),
 
-  userId: Joi.string()
-    .custom((value, helper) => {
-      if (!isValidObjectId(value)) {
-        return helper.message('User ID should be a valid Mongo ID');
-      }
-      return value;
-    })
-    .required(),
+  userId: Joi.string().custom((value, helper) => {
+    if (!isValidObjectId(value)) {
+      return helper.message('User ID should be a valid Mongo ID');
+    }
+    return value;
+  }),
 });
 
 export const updateTransactionSchema = Joi.object({
@@ -47,11 +45,4 @@ export const updateTransactionSchema = Joi.object({
   date: Joi.date(),
 
   comment: Joi.string().max(300),
-
-  userId: Joi.string().custom((value, helper) => {
-    if (!isValidObjectId(value)) {
-      return helper.message('User ID should be a valid Mongo ID');
-    }
-    return value;
-  }),
 });
