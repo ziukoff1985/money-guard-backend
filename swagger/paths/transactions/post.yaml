@@ -1,0 +1,66 @@
+tags:
+  - Transactions
+summary: Create transactions
+operationId: createTransactions
+description: 'Create a transaction with payload'
+security:
+  - bearerAuth: []
+requestBody:
+  content:
+    multipart/form-data:
+      schema:
+        type: object
+        required:
+          - transactionType
+          - categoryId
+          - summ
+        properties:
+          transactionType:
+            description: 'Transaction type'
+            type: string
+            enum: ['income', 'expense']
+          categoryId:
+            description: 'Transaction category id'
+            type: string
+            example: 65e4decdd286b30065d54af9
+          summ:
+            description: 'Transaction amount'
+            type: number
+            format: float
+            minimum: 0.01
+            example: 100
+          date:
+            type: string
+            format: date-time
+            description: Date of the transaction
+            example: 2025-04-20T10:30:00.000Z
+          comment:
+            type: string
+            maxLength: 300
+            description: Optional comment for the transaction
+            example: Household products
+responses:
+  '201':
+    description: Creates a transaction
+    content:
+      application/json:
+        schema:
+          type: object
+          required:
+            - status
+            - message
+            - data
+          properties:
+            status:
+              type: integer
+              example: 201
+            message:
+              type: string
+              example: Successfully created a transaction!
+            data:
+              type: object
+              $ref: '../../components/schemas/transaction.yaml'
+  '401':
+    $ref: '../../components/responses/401.yaml'
+  '400':
+    $ref: '../../components/responses/400.yaml'
