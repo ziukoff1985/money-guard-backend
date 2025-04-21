@@ -5,6 +5,7 @@ export const registerUserCtrlr = async (req, res) => {
   const user = await registerUser(req.body);
   
   res.status(201).send({
+    status: 201,
     message: 'Successfully registered an user!',
     data: user
   });
@@ -23,6 +24,7 @@ export const loginUserCtrlr = async (req, res) => {
   });
 
   res.send({
+    status: 200,
     message: 'Successfully logged in an user!',
     data: {accessToken: session.accessToken}
   });
@@ -44,6 +46,7 @@ export const refreshUsersSessionCtrlr = async (req, res) => {
   setupSession(res, session);
 
   res.send({
+    status: 200,
     message: 'Successfully refreshed a session!',
     data: {accessToken: session.accessToken}
   });

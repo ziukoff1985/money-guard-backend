@@ -1,0 +1,30 @@
+type: object
+required: 
+  - _id
+  - name
+  - email
+  - createdAt
+  - updatedAt
+properties: 
+  _id: 
+    description: Unique identifier of an user
+    type: string
+    example: 67dd4fb6c1e46079abca809c
+  name: 
+    description: Name of the user
+    type: string
+    example: 'John Doe'
+  email: 
+    description: Email address of an user
+    type: string
+    example: 'johndoe@example.com'
+  createdAt: 
+    description: Timestamp of user creation
+    type: string
+    format: date-time
+    example: '2025-01-01T12:00:00Z'
+  updatedAt: 
+    description: Timestamp of the latest update of an user
+    type: string
+    format: date-time
+    example: '2025-01-01T12:00:00Z'

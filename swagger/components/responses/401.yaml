@@ -21,4 +21,4 @@ content:
           properties:
             message:
               type: string
-              example: 'Access token expired'
+              example: 'Access token expired, invalid or not provided'
