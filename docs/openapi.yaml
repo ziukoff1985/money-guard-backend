@@ -45,6 +45,11 @@ paths:
       $ref: ../swagger/paths/transactions/{id}/patch.yaml
     delete:
       $ref: ../swagger/paths/transactions/{id}/delete.yaml
+  
+  /categories:
+    get:
+      $ref: ../swagger/paths/categories/get.yaml
+
 components:
   securitySchemes:
     bearerAuth:
