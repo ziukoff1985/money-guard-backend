@@ -22,7 +22,7 @@ export const setupServer = () => {
       origin: [
         'http://localhost:5173',
         'http://localhost:5174',
-        'https://my-money-guard-front.example.com',
+        'https://test-nine-iota-12.vercel.app/',
       ],
       credentials: true,
       optionsSuccessStatus: 200,
