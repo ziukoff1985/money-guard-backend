@@ -1,8 +1,10 @@
 import { Router } from 'express';
-import { getCategories } from '../controllers/categories.js';
+import { ctrlWrapper } from '../utils/ctrlWrapper.js';
+import { getCategoriesController } from '../controllers/categories.js';
+import { authenticate } from '../middlewares/authenticate.js';
 
-const router = Router();
+const categoriesRouter = Router();
 
-router.get('/', getCategories);
+categoriesRouter.get('/', authenticate, ctrlWrapper(getCategoriesController));
 
-export default router;
+export default categoriesRouter;

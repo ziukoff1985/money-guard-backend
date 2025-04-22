@@ -1,26 +1,11 @@
-import { Category } from '../db/models/category.js';
+import { getCategories } from '../services/categories.js';
 
-export const getCategories = async (req, res, next) => {
-  try {
-    const categories = await Category.find();
+export const getCategoriesController = async (req, res) => {
+  const categories = await getCategories();
 
-    const incomes = categories
-      .filter(category => category.title === 'Incomes')
-      .map(category => category.title);
-
-    const expenses = categories
-      .filter(category => category.title !== 'Incomes')
-      .map(category => category.title);
-
-    res.status(200).json({
-      status: 200,
-      message: 'Successfully fetched categories!',
-      data: {
-        incomes,
-        expenses,
-      },
-    });
-  } catch (error) {
-    next(error);
-  }
+  res.status(200).send({
+    status: 200,
+    message: 'Successfully fetched categories!',
+    data: categories,
+  });
 };

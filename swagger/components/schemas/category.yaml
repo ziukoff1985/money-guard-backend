@@ -1,14 +1,11 @@
 type: object
-properties:
-  name:
-    type: string
-    example: Products
-  type:
-    type: string
-    enum:
-      - income
-      - expense
-    example: expense
 required:
-  - name
-  - type
+  - _id
+  - title
+properties:
+  _id:
+    type: string
+    example: "661a15348f1b9bcdbe48eecc"
+  title:
+    type: string
+    example: "Products"

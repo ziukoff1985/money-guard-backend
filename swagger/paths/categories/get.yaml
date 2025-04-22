@@ -28,23 +28,11 @@ responses:
                 incomes:
                   type: array
                   items:
-                    type: string
-                  example: ["Incomes"]
+                    $ref: ../../components/schemas/category.yaml
                 expenses:
                   type: array
                   items:
-                    type: string
-                  example:
-                    - "Main expenses"
-                    - "Products"
-                    - "Car"
-                    - "Self care"
-                    - "Child care"
-                    - "Household products"
-                    - "Education"
-                    - "Leisure"
-                    - "Other expenses"
-                    - "Entertainment"
+                    $ref: ../../components/schemas/category.yaml
   '401':
     $ref: ../../components/responses/401.yaml
   '500':
