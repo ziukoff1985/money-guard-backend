@@ -761,6 +761,67 @@
           }
         }
       }
+    },
+    "/categories": {
+      "get": {
+        "tags": [
+          "Categories"
+        ],
+        "summary": "Get income and expense categories",
+        "operationId": "getCategories",
+        "description": "Returns a list of income and expense categories",
+        "security": [],
+        "responses": {
+          "200": {
+            "description": "Successfully retrieved categories",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "status",
+                    "message",
+                    "data"
+                  ],
+                  "properties": {
+                    "status": {
+                      "type": "integer",
+                      "example": 200
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Successfully fetched categories!"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "incomes": {
+                          "type": "array",
+                          "items": {
+                            "$ref": "#/components/schemas/category"
+                          }
+                        },
+                        "expenses": {
+                          "type": "array",
+                          "items": {
+                            "$ref": "#/components/schemas/category"
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/401"
+          },
+          "500": {
+            "$ref": "#/components/responses/500"
+          }
+        }
+      }
     }
   },
   "components": {
@@ -861,6 +922,23 @@
             "description": "Transaction's user id",
             "type": "string",
             "example": "65e4decdd286b30065d54af9"
+          }
+        }
+      },
+      "category": {
+        "type": "object",
+        "required": [
+          "_id",
+          "title"
+        ],
+        "properties": {
+          "_id": {
+            "type": "string",
+            "example": "661a15348f1b9bcdbe48eecc"
+          },
+          "title": {
+            "type": "string",
+            "example": "Products"
           }
         }
       }

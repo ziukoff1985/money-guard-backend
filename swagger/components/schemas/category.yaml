@@ -1,0 +1,11 @@
+type: object
+required:
+  - _id
+  - title
+properties:
+  _id:
+    type: string
+    example: "661a15348f1b9bcdbe48eecc"
+  title:
+    type: string
+    example: "Products"
