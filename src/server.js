@@ -8,6 +8,7 @@ import { getEnvVar } from './utils/getEnvVar.js';
 import { notFoundHandler } from './middlewares/notFoundHandler.js';
 import { errorHandler } from './middlewares/errorHandler.js';
 import router from './routes/index.js';
+import { swaggerDocs } from './middlewares/swaggerDocs.js';
 
 dotenv.config();
 
@@ -28,6 +29,9 @@ export const setupServer = () => {
       optionsSuccessStatus: 200,
     }),
   );
+
+  app.use('/api-docs', swaggerDocs());
+
   app.use(
     pino({
       transport: {
