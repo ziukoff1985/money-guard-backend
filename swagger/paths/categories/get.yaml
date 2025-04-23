@@ -1,0 +1,39 @@
+tags:
+  - Categories
+summary: Get income and expense categories
+operationId: getCategories
+description: Returns a list of income and expense categories
+security: []
+responses:
+  '200':
+    description: Successfully retrieved categories
+    content:
+      application/json:
+        schema:
+          type: object
+          required:
+            - status
+            - message
+            - data
+          properties:
+            status:
+              type: integer
+              example: 200
+            message:
+              type: string
+              example: Successfully fetched categories!
+            data:
+              type: object
+              properties:
+                incomes:
+                  type: array
+                  items:
+                    $ref: ../../components/schemas/category.yaml
+                expenses:
+                  type: array
+                  items:
+                    $ref: ../../components/schemas/category.yaml
+  '401':
+    $ref: ../../components/responses/401.yaml
+  '500':
+    $ref: ../../components/responses/500.yaml
