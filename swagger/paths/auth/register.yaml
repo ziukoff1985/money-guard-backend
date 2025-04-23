@@ -6,49 +6,53 @@ description: Register a new user
 security: []
 requestBody:
   required: true
-  content: 
+  content:
     application/json:
-      schema: 
+      schema:
         type: object
         required:
           - name
           - email
           - password
-        properties: 
-          name: 
+        properties:
+          name:
             type: string
             example: 'John Doe'
-          email: 
+          email:
             type: string
+            format: email
+            maxLength: 64
             example: 'johndoe@example.com'
           password:
             type: string
+            minLength: 8
+            maxLength: 64
             example: 'password123'
 responses:
   '201':
     description: User registered successfully
-    content: 
+    content:
       application/json:
         schema:
           type: object
           required:
             - status
-            - message 
+            - message
             - data
           properties:
             status:
               type: integer
               example: 201
-            message: 
+            message:
               type: string
-              example: Successfully registered a new user!
+              example: Successfully registered an user!
             data:
               $ref: ../../components/schemas/user.yaml
   '400':
     $ref: '../../components/responses/400.yaml'
   '409':
     description: Conflict error
-    content: 
+    content:
       application/json:
         schema:
           type: object

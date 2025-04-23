@@ -1,29 +1,34 @@
 type: object
-required: 
+required:
   - _id
   - name
   - email
+  - balance
   - createdAt
   - updatedAt
-properties: 
-  _id: 
+properties:
+  _id:
     description: Unique identifier of an user
     type: string
     example: 67dd4fb6c1e46079abca809c
-  name: 
+  name:
     description: Name of the user
     type: string
     example: 'John Doe'
-  email: 
+  email:
     description: Email address of an user
     type: string
     example: 'johndoe@example.com'
-  createdAt: 
+  balance:
+    description: User balance
+    type: number
+    example: 100
+  createdAt:
     description: Timestamp of user creation
     type: string
     format: date-time
     example: '2025-01-01T12:00:00Z'
-  updatedAt: 
+  updatedAt:
     description: Timestamp of the latest update of an user
     type: string
     format: date-time

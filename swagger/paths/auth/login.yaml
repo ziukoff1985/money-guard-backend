@@ -1,4 +1,4 @@
-tags: 
+tags:
   - Auth
 summary: Login an user
 operationId: loginUser
@@ -6,7 +6,7 @@ description: Login an user
 security: []
 requestBody:
   required: true
-  content: 
+  content:
     application/json:
       schema:
         type: object
@@ -16,6 +16,7 @@ requestBody:
         properties:
           email:
             type: string
+            format: email
             example: 'johndoe@example.com'
           password:
             type: string
@@ -27,7 +28,7 @@ responses:
       application/json:
         schema:
           type: object
-          required: 
+          required:
             - status
             - message
             - data
@@ -38,7 +39,7 @@ responses:
             message:
               type: string
               example: 'Successfully logged in an user!'
-            data: 
+            data:
               type: object
               properties:
                 accessToken:
@@ -46,14 +47,14 @@ responses:
                   example: 'randomToken123'
     headers:
       Set-Cookie:
-        schema: 
+        schema:
           type: string
           example: 'refreshToken=randomToken123; HttpOnly; Expires=Wed, 01 Jan 2025 00:00:00 GMT; sessionId=randomSessionId123; HttpOnly; Expires=Wed, 01 Jan 2025 00:00:00 GMT'
   '400':
     $ref: '../../components/responses/400.yaml'
   '401':
     description: Unauthorized error
-    content: 
+    content:
       application/json:
         schema:
           type: object
@@ -68,7 +69,7 @@ responses:
             message:
               type: string
               example: UnauthorizedError
-            data: 
+            data:
               type: object
               required:
                 - message

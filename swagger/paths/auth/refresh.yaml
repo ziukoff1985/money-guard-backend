@@ -3,11 +3,12 @@ tags:
 summary: Refresh user session
 operationId: refreshUsersSession
 description: Refresh user session
-security: []
+security:
+  - bearerAuth: []
 responses:
   '200':
     description: Session refreshed successfully
-    content: 
+    content:
       application/json:
         schema:
           type: object
@@ -15,11 +16,11 @@ responses:
             - status
             - message
             - data
-          properties: 
-            status: 
+          properties:
+            status:
               type: integer
               example: 200
-            message: 
+            message:
               type: string
               example: 'Successfully refreshed a session!'
             data:
@@ -35,5 +36,5 @@ responses:
           example: 'refreshToken=newRefreshToken123; HttpOnly; Expires=Wed, 01 Jan 2025 00:00:00 GMT; sessionId=newSessionId123; HttpOnly; Expires=Wed, 01 Jan 2025 00:00:00 GMT'
   '401':
     $ref: '../../components/responses/401.yaml'
-  '500': 
+  '500':
     $ref: '../../components/responses/500.yaml'

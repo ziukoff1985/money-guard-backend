@@ -25,6 +25,13 @@ responses:
             status:
               type: integer
               example: 204
+            message:
+              type: string
+              example: Transaction deleted!
+            data:
+              type: object
+              example:
+                balance: 100
   '404':
     $ref: '../../../components/responses/404.yaml'
   '401':
