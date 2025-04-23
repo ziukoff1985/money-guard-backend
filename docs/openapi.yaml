@@ -8,7 +8,7 @@ info:
   description: This is a documentation of Money Guard
 tags:
   - name: Auth
-    description: Auth operations.
+    description: Operations about authentication.
   - name: Users
     description: Operations about users.
   - name: Transactions
@@ -16,7 +16,7 @@ tags:
   - name: Categories
     description: Operations about categories.
   - name: Summary
-    description: Operations about summary.
+    description: Operations about summary statistics.
 servers:
   - url: https://money-guard-backend-ulen.onrender.com
   - url: http://localhost:3000
@@ -49,6 +49,10 @@ paths:
   /categories:
     get:
       $ref: ../swagger/paths/categories/get.yaml
+
+  /user/current:
+    get:
+      $ref: ../swagger/paths/users/current.yaml
 
 components:
   securitySchemes:

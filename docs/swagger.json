@@ -20,7 +20,7 @@
   "tags": [
     {
       "name": "Auth",
-      "description": "Auth operations."
+      "description": "Operations about authentication."
     },
     {
       "name": "Users",
@@ -36,7 +36,7 @@
     },
     {
       "name": "Summary",
-      "description": "Operations about summary."
+      "description": "Operations about summary statistics."
     }
   ],
   "paths": {
@@ -67,10 +67,14 @@
                   },
                   "email": {
                     "type": "string",
+                    "format": "email",
+                    "maxLength": 64,
                     "example": "johndoe@example.com"
                   },
                   "password": {
                     "type": "string",
+                    "minLength": 8,
+                    "maxLength": 64,
                     "example": "password123"
                   }
                 }
@@ -97,7 +101,7 @@
                     },
                     "message": {
                       "type": "string",
-                      "example": "Successfully registered a new user!"
+                      "example": "Successfully registered an user!"
                     },
                     "data": {
                       "$ref": "#/components/schemas/user"
@@ -174,6 +178,7 @@
                 "properties": {
                   "email": {
                     "type": "string",
+                    "format": "email",
                     "example": "johndoe@example.com"
                   },
                   "password": {
@@ -282,7 +287,11 @@
         "summary": "Refresh user session",
         "operationId": "refreshUsersSession",
         "description": "Refresh user session",
-        "security": [],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
         "responses": {
           "200": {
             "description": "Session refreshed successfully",
@@ -343,7 +352,11 @@
         "summary": "Logout an user",
         "operationId": "logoutUser",
         "description": "Logout an user",
-        "security": [],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
         "responses": {
           "204": {
             "description": "User logged out successfully",
@@ -744,6 +757,16 @@
                     "status": {
                       "type": "integer",
                       "example": 204
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Transaction deleted!"
+                    },
+                    "data": {
+                      "type": "object",
+                      "example": {
+                        "balance": 100
+                      }
                     }
                   }
                 }
@@ -770,7 +793,11 @@
         "summary": "Get income and expense categories",
         "operationId": "getCategories",
         "description": "Returns a list of income and expense categories",
-        "security": [],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
         "responses": {
           "200": {
             "description": "Successfully retrieved categories",
@@ -795,19 +822,120 @@
                     "data": {
                       "type": "object",
                       "properties": {
-                        "incomes": {
+                        "income": {
                           "type": "array",
                           "items": {
                             "$ref": "#/components/schemas/category"
                           }
                         },
-                        "expenses": {
+                        "expense": {
                           "type": "array",
                           "items": {
                             "$ref": "#/components/schemas/category"
                           }
                         }
+                      },
+                      "example": {
+                        "income": [
+                          {
+                            "_id": "6804058087a5c385d8e99714",
+                            "title": "Incomes"
+                          }
+                        ],
+                        "expense": [
+                          {
+                            "_id": "6804059587a5c385d8e99716",
+                            "title": "Main expenses"
+                          },
+                          {
+                            "_id": "680405a687a5c385d8e99718",
+                            "title": "Products"
+                          },
+                          {
+                            "_id": "680405b587a5c385d8e9971a",
+                            "title": "Car"
+                          },
+                          {
+                            "_id": "680405c787a5c385d8e9971c",
+                            "title": "Self care"
+                          },
+                          {
+                            "_id": "680405d987a5c385d8e9971e",
+                            "title": "Child care"
+                          },
+                          {
+                            "_id": "680405e787a5c385d8e99720",
+                            "title": "Household products"
+                          },
+                          {
+                            "_id": "680405f687a5c385d8e99722",
+                            "title": "Education"
+                          },
+                          {
+                            "_id": "6804060687a5c385d8e99724",
+                            "title": "Leisure"
+                          },
+                          {
+                            "_id": "6804061187a5c385d8e99726",
+                            "title": "Other expenses"
+                          },
+                          {
+                            "_id": "6804061d87a5c385d8e99728",
+                            "title": "Entertainment"
+                          }
+                        ]
                       }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/401"
+          },
+          "500": {
+            "$ref": "#/components/responses/500"
+          }
+        }
+      }
+    },
+    "/user/current": {
+      "get": {
+        "tags": [
+          "Users"
+        ],
+        "summary": "Get information about current user",
+        "operationId": "getCurrentUser",
+        "description": "Get information about current user",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfully fetched current user",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "status",
+                    "message",
+                    "data"
+                  ],
+                  "properties": {
+                    "status": {
+                      "type": "integer",
+                      "example": 200
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Successfully fetched current user"
+                    },
+                    "data": {
+                      "$ref": "#/components/schemas/user"
                     }
                   }
                 }
@@ -838,6 +966,7 @@
           "_id",
           "name",
           "email",
+          "balance",
           "createdAt",
           "updatedAt"
         ],
@@ -856,6 +985,11 @@
             "description": "Email address of an user",
             "type": "string",
             "example": "johndoe@example.com"
+          },
+          "balance": {
+            "description": "User balance",
+            "type": "number",
+            "example": 100
           },
           "createdAt": {
             "description": "Timestamp of user creation",

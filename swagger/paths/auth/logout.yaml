@@ -3,7 +3,8 @@ tags:
 summary: Logout an user
 operationId: logoutUser
 description: Logout an user
-security: []
+security: 
+  - bearerAuth: []
 responses:
   '204':
     description: User logged out successfully

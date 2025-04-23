@@ -3,7 +3,8 @@ tags:
 summary: Get income and expense categories
 operationId: getCategories
 description: Returns a list of income and expense categories
-security: []
+security:
+  - bearerAuth: []
 responses:
   '200':
     description: Successfully retrieved categories
@@ -25,14 +26,39 @@ responses:
             data:
               type: object
               properties:
-                incomes:
+                income:
                   type: array
                   items:
                     $ref: ../../components/schemas/category.yaml
-                expenses:
+                expense:
                   type: array
                   items:
                     $ref: ../../components/schemas/category.yaml
+              example:
+                income:
+                  - _id: '6804058087a5c385d8e99714'
+                    title: 'Incomes'
+                expense:
+                  - _id: '6804059587a5c385d8e99716'
+                    title: 'Main expenses'
+                  - _id: '680405a687a5c385d8e99718'
+                    title: 'Products'
+                  - _id: '680405b587a5c385d8e9971a'
+                    title: 'Car'
+                  - _id: '680405c787a5c385d8e9971c'
+                    title: 'Self care'
+                  - _id: '680405d987a5c385d8e9971e'
+                    title: 'Child care'
+                  - _id: '680405e787a5c385d8e99720'
+                    title: 'Household products'
+                  - _id: '680405f687a5c385d8e99722'
+                    title: 'Education'
+                  - _id: '6804060687a5c385d8e99724'
+                    title: 'Leisure'
+                  - _id: '6804061187a5c385d8e99726'
+                    title: 'Other expenses'
+                  - _id: '6804061d87a5c385d8e99728'
+                    title: 'Entertainment'
   '401':
     $ref: ../../components/responses/401.yaml
   '500':
