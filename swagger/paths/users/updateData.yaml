@@ -1,0 +1,46 @@
+tags:
+  - Users
+summary: Update user's profile data
+operationId: updateUserData
+description: Allows the user to update their name (required field). Warning! - email, password, and balance updates are forbidden.
+security:
+  - bearerAuth: []
+requestBody:
+  required: true
+  content:
+    application/json:
+      schema:
+        type: object
+        properties:
+          name:
+            type: string
+            description: New user's name
+            minLength: 3
+            maxLength: 33
+            example: John Doe
+responses:
+  '200':
+    description: User data updated successfully
+    content:
+      application/json:
+        schema:
+          type: object
+          required:
+            - status
+            - message
+            - data
+          properties:
+            status:
+              type: integer
+              example: 200
+            message:
+              type: string
+              example: Successfully updated user data!
+            data:
+              $ref: ../../components/schemas/user.yaml
+  '400':
+    $ref: '../../components/responses/400.yaml'
+  '401':
+    $ref: '../../components/responses/401.yaml'
+  '500':
+    $ref: '../../components/responses/500.yaml'

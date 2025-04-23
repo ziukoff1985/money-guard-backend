@@ -19,7 +19,6 @@ tags:
     description: Operations about summary statistics.
 servers:
   - url: https://money-guard-backend-ulen.onrender.com
-  - url: http://localhost:3000
 paths:
   /auth/register:
     post:
@@ -53,6 +52,9 @@ paths:
   /user/current:
     get:
       $ref: ../swagger/paths/users/current.yaml
+  /user/update-data:
+    patch:
+      $ref: ../swagger/paths/users/updateData.yaml
 
 components:
   securitySchemes:
