@@ -481,14 +481,9 @@
                       "example": "Successfully found transactions!"
                     },
                     "data": {
-                      "type": "object",
-                      "properties": {
-                        "data": {
-                          "type": "array",
-                          "items": {
-                            "$ref": "#/components/schemas/transaction"
-                          }
-                        }
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/transaction"
                       }
                     }
                   }
@@ -518,7 +513,7 @@
         ],
         "requestBody": {
           "content": {
-            "multipart/form-data": {
+            "application/json": {
               "schema": {
                 "type": "object",
                 "required": [
@@ -632,7 +627,7 @@
         ],
         "requestBody": {
           "content": {
-            "multipart/form-data": {
+            "application/json": {
               "schema": {
                 "type": "object",
                 "properties": {

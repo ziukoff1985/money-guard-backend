@@ -4,6 +4,7 @@ import authRouter from './auth.js';
 import categoriesRouter from './categories.js';
 import currentUserRouter from './currentUser.js';
 import updateUserRouter from './updateUser.js';
+import summaryRouter from './summary.js';
 
 const router = Router();
 
@@ -12,5 +13,6 @@ router.use('/auth', authRouter);
 router.use('/categories', categoriesRouter);
 router.use('/user', currentUserRouter);
 router.use('/user', updateUserRouter);
+router.use('/transactions/summary', summaryRouter);
 
 export default router;
