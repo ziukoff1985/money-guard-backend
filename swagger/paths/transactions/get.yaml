@@ -24,12 +24,9 @@ responses:
               type: string
               example: Successfully found transactions!
             data:
-              type: object
-              properties:
-                data:
-                  type: array
-                  items:
-                    $ref: '../../components/schemas/transaction.yaml'
+              type: array
+              items:
+                $ref: '../../components/schemas/transaction.yaml'
   '401':
     $ref: '../../components/responses/401.yaml'
   '500':
