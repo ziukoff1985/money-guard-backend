@@ -3,7 +3,7 @@ import { UsersCollection } from '../db/models/user.js';
 
 export const getAllTransactions = async ({ userId }) => {
   const transactions = await TransactionsCollection.find({ userId });
-  return { data: transactions };
+  return transactions;
 };
 
 export const createTransaction = async (userId, payload) => {
