@@ -1,3 +1,4 @@
+import createHttpError from 'http-errors';
 import { TransactionsCollection } from '../db/models/transaction.js';
 import { UsersCollection } from '../db/models/user.js';
 
@@ -7,6 +8,23 @@ export const getAllTransactions = async ({ userId }) => {
 };
 
 export const createTransaction = async (userId, payload) => {
+  const { transactionType, categoryId } = payload;
+
+  const INCOME_CATEGORY_ID = '6804058087a5c385d8e99714';
+
+  if (transactionType === 'income' && categoryId !== INCOME_CATEGORY_ID) {
+    throw createHttpError(
+      400,
+      'Income transactions must use the "Incomes" category',
+    );
+  }
+  if (transactionType === 'expense' && categoryId === INCOME_CATEGORY_ID) {
+    throw createHttpError(
+      400,
+      'Expense transactions cannot use the "Incomes" category',
+    );
+  }
+
   const transaction = await TransactionsCollection.create({
     ...payload,
     userId,
