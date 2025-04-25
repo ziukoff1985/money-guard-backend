@@ -1,5 +1,5 @@
 import { TransactionsCollection } from '../db/models/transaction.js';
-// import { calculateBalance } from './transactions.js';
+// import { Category } from '../db/models/category.js';
 
 export const getSummaryByPeriod = async (userId, period) => {
   // Розбиваємо period на рік і місяць
@@ -18,6 +18,22 @@ export const getSummaryByPeriod = async (userId, period) => {
         date: { $gte: startDate, $lt: endDate },
       },
     },
+    // Підтягуємо дані категорії
+    {
+      $lookup: {
+        from: 'categories',
+        localField: 'categoryId',
+        foreignField: '_id',
+        as: 'category',
+      },
+    },
+    // Розгортаємо масив category
+    {
+      $unwind: {
+        path: '$category',
+        preserveNullAndEmptyArrays: true,
+      },
+    },
     // Групуємо за типом транзакції та категорією
     {
       $group: {
@@ -26,6 +42,7 @@ export const getSummaryByPeriod = async (userId, period) => {
           categoryId: '$categoryId',
         },
         total: { $sum: '$summ' },
+        title: { $first: '$category.title' },
       },
     },
   ]);
@@ -40,10 +57,11 @@ export const getSummaryByPeriod = async (userId, period) => {
 
   report.forEach((item) => {
     const { transactionType, categoryId } = item._id;
-    const total = item.total;
+    const { total, title } = item;
 
     const categoryObj = {
       categoryId: categoryId.toString(),
+      title: title || 'Unknown',
       total,
     };
 
