@@ -10,6 +10,8 @@ import { errorHandler } from './middlewares/errorHandler.js';
 import router from './routes/index.js';
 import { swaggerDocs } from './middlewares/swaggerDocs.js';
 
+import { UPLOAD_DIR } from './constants/index.js';
+
 dotenv.config();
 
 const PORT = Number(getEnvVar('PORT', 3000));
@@ -44,6 +46,9 @@ export const setupServer = () => {
     }),
   );
   app.use(cookieParser());
+
+  app.use('/uploads', express.static(UPLOAD_DIR));
+
   app.get('/', (req, res) => {
     res.json({
       status: 200,
