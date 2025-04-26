@@ -5,6 +5,7 @@ import categoriesRouter from './categories.js';
 import currentUserRouter from './currentUser.js';
 import updateUserRouter from './updateUser.js';
 import summaryRouter from './summary.js';
+import updatePhotoRouter from './updatePhoto.js';
 
 const router = Router();
 
@@ -14,5 +15,6 @@ router.use('/categories', categoriesRouter);
 router.use('/user', currentUserRouter);
 router.use('/user', updateUserRouter);
 router.use('/transactions/summary', summaryRouter);
+router.use('/user', updatePhotoRouter);
 
 export default router;
