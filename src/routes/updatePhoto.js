@@ -7,7 +7,7 @@ import { patchUserPhotoController } from '../controllers/updatePhoto.js';
 const updatePhotoRouter = Router();
 
 updatePhotoRouter.patch(
-  '/update-photo',
+  '/photo',
   authenticate,
   upload.single('photo'),
   ctrlWrapper(patchUserPhotoController),

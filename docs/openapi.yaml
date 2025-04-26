@@ -52,9 +52,12 @@ paths:
   /user/current:
     get:
       $ref: ../swagger/paths/users/current.yaml
-  /user/update-data:
+  /user/name:
     patch:
       $ref: ../swagger/paths/users/updateData.yaml
+  /user/photo:
+    patch:
+      $ref: ../swagger/paths/users/updatePhoto.yaml
 
 components:
   securitySchemes:
