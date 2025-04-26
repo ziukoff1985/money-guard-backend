@@ -6,7 +6,7 @@ const userSchema = new Schema(
     email: { type: String, unique: true, required: true },
     password: { type: String, required: true },
     balance: { type: Number, default: 0 },
-    photo: { type: String },
+    photo: { type: String, default: null },
   },
   { timestamps: true, versionKey: false },
 );

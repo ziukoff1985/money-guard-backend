@@ -23,6 +23,11 @@ properties:
     description: User balance
     type: number
     example: 100
+  photo:
+    description: URL of the user's photo
+    type: string
+    format: uri
+    example: 'https://res.cloudinary.com/d9tokskxo/image/upload/v1640000000/67dd4fb6c1e46079abca809c.jpg'
   createdAt:
     description: Timestamp of user creation
     type: string

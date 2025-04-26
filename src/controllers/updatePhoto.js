@@ -35,7 +35,7 @@ export const patchUserPhotoController = async (req, res, next) => {
 
   res.json({
     status: 200,
-    message: 'Successfully patched a user!',
+    message: 'Successfully updated user photo!',
     data: result,
   });
 };

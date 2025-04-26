@@ -60,18 +60,23 @@
                 "properties": {
                   "name": {
                     "type": "string",
+                    "minLength": 3,
+                    "maxLength": 33,
+                    "description": "User's name",
                     "example": "John Doe"
                   },
                   "email": {
                     "type": "string",
                     "format": "email",
                     "maxLength": 64,
+                    "description": "User's email address",
                     "example": "johndoe@example.com"
                   },
                   "password": {
                     "type": "string",
                     "minLength": 8,
                     "maxLength": 64,
+                    "description": "User's password",
                     "example": "password123"
                   }
                 }
@@ -943,7 +948,7 @@
         }
       }
     },
-    "/user/update-data": {
+    "/user/name": {
       "patch": {
         "tags": [
           "Users"
@@ -1015,6 +1020,78 @@
           }
         }
       }
+    },
+    "/user/photo": {
+      "patch": {
+        "tags": [
+          "Users"
+        ],
+        "summary": "Update user's profile photo",
+        "operationId": "updateUserPhoto",
+        "description": "Allows the user to update their profile photo (required field). The photo must be in JPEG or PNG format and less than 500KB in size.",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "photo": {
+                    "type": "string",
+                    "format": "binary",
+                    "description": "New user's profile photo (JPEG or PNG format, max size 500KB)",
+                    "example": "C:\\Users\\OneDrive\\Pictures\\photo.jpg"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "User photo updated successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "status",
+                    "message",
+                    "data"
+                  ],
+                  "properties": {
+                    "status": {
+                      "type": "integer",
+                      "example": 200
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Successfully updated user photo!"
+                    },
+                    "data": {
+                      "$ref": "#/components/schemas/user"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/400"
+          },
+          "401": {
+            "$ref": "#/components/responses/401"
+          },
+          "500": {
+            "$ref": "#/components/responses/500"
+          }
+        }
+      }
     }
   },
   "components": {
@@ -1055,6 +1132,12 @@
             "description": "User balance",
             "type": "number",
             "example": 100
+          },
+          "photo": {
+            "description": "URL of the user's photo",
+            "type": "string",
+            "format": "uri",
+            "example": "https://res.cloudinary.com/d9tokskxo/image/upload/v1640000000/67dd4fb6c1e46079abca809c.jpg"
           },
           "createdAt": {
             "description": "Timestamp of user creation",

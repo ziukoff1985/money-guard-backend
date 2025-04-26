@@ -8,7 +8,7 @@ import { updateUserDataController } from '../controllers/user.js';
 const updateUserRouter = Router();
 
 updateUserRouter.patch(
-  '/update-data',
+  '/name',
   authenticate,
   validateBody(updateUserSchema),
   ctrlWrapper(updateUserDataController),
