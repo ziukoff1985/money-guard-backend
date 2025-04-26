@@ -953,7 +953,7 @@
         "tags": [
           "Users"
         ],
-        "summary": "Update user's profile data",
+        "summary": "Update user's profile name",
         "operationId": "updateUserData",
         "description": "Allows the user to update their name (required field). Warning! - email, password, and balance updates are forbidden.",
         "security": [

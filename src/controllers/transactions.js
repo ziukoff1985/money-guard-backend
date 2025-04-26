@@ -43,7 +43,7 @@ export const patchTransactionController = async (req, res) => {
     status: 200,
     message: 'Successfully patched a transaction!',
     data: {
-      transaction: result.transaction,
+      transaction: result,
       balance,
     },
   });
