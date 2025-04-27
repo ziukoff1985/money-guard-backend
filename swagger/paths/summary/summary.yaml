@@ -1,0 +1,88 @@
+tags:
+  - Summary
+summary: Retrieve transaction summary for a specific period
+operationId: getSummary
+description: Retrieves a summary of transactions for the authenticated user within the specified period (YYYY-MM). The response includes income and expense details by category, total income, total expense, and balance.
+security:
+  - bearerAuth: []
+parameters:
+  - name: period
+    in: query
+    required: true
+    description: The period for which to retrieve the summary, in YYYY-MM format (e.g., 2025-04).
+    example: '2025-04'
+    schema:
+      type: string
+      pattern: '^\d{4}-(0[1-9]|1[0-2])$'
+      example: '2025-04'
+responses:
+  '200':
+    description: Successfully retrieved transaction summary
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            status:
+              type: integer
+              example: 200
+            message:
+              type: string
+              example: Successfully retrieved summary for period 2025-04!
+            income:
+              type: array
+              items:
+                type: object
+                properties:
+                  categoryId:
+                    type: string
+                    example: 6804058087a5c385d8e99714
+                  title:
+                    type: string
+                    example: Incomes
+                  total:
+                    type: number
+                    example: 50000
+            expense:
+              type: array
+              items:
+                type: object
+                properties:
+                  categoryId:
+                    type: string
+                    example: 6804060687a5c385d8e99724
+                  title:
+                    type: string
+                    example: Leisure
+                  total:
+                    type: number
+                    example: 10000
+            totalIncome:
+              type: number
+              example: 50000
+            totalExpense:
+              type: number
+              example: 10000
+            balance:
+              type: number
+              example: 40000
+        example:
+          status: 200
+          message: Successfully retrieved summary for period 2025-04!
+          income:
+            - categoryId: 6804058087a5c385d8e99714
+              title: Incomes
+              total: 50000
+          expense:
+            - categoryId: 6804060687a5c385d8e99724
+              title: Leisure
+              total: 10000
+          totalIncome: 50000
+          totalExpense: 10000
+          balance: 40000
+  '400':
+    $ref: '../../components/responses/400.yaml'
+  '401':
+    $ref: '../../components/responses/401.yaml'
+  '500':
+    $ref: '../../components/responses/500.yaml'

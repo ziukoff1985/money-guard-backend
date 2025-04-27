@@ -59,6 +59,10 @@ paths:
     patch:
       $ref: ../swagger/paths/users/updatePhoto.yaml
 
+  /transactions/summary:
+    get:
+      $ref: ../swagger/paths/summary/summary.yaml
+
 components:
   securitySchemes:
     bearerAuth:
