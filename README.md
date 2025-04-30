@@ -83,7 +83,7 @@ To run the project locally, create a `.env` file in the root directory and defin
 PORT=3000                           # Port on which the server will run
 MONGODB_USER=your_username          # MongoDB username (e.g., for MongoDB Atlas)
 MONGODB_PASSWORD=your_password      # MongoDB password
-MONGODB_URL=moneyguard.kvwzvnr.mongodb.net  # MongoDB host (without protocol or database name)
+MONGODB_URL=moneyguard.mongodb.net  # MongoDB host (without protocol or database name)
 MONGODB_DB=moneyguard               # Name of the database used by the application
 
 # ===== Cloudinary Configuration =====
