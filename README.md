@@ -74,7 +74,34 @@ cd money-guard-backend
 npm install
 ```
 
-### 4. Run the project:
+### 4. 🔐 Set up environment variables:
+
+To run the project locally, create a `.env` file in the root directory and define the following environment variables:
+
+```env
+# ===== MongoDB Configuration =====
+PORT=3000                           # Port on which the server will run
+MONGODB_USER=your_username          # MongoDB username (e.g., for MongoDB Atlas)
+MONGODB_PASSWORD=your_password      # MongoDB password
+MONGODB_URL=moneyguard.kvwzvnr.mongodb.net  # MongoDB host (without protocol or database name)
+MONGODB_DB=moneyguard               # Name of the database used by the application
+
+# ===== Cloudinary Configuration =====
+CLOUD_NAME=your_cloud_name          # Your Cloudinary account name
+API_KEY=your_api_key                # Public Cloudinary API key
+API_SECRET=your_api_secret          # Private Cloudinary API secret
+ENABLE_CLOUDINARY=true              # Enable/disable Cloudinary integration (true/false)
+```
+
+### ℹ️ Note:
+
+The MongoDB connection string is usually constructed dynamically using these variables. For example:
+
+```bash
+mongodb+srv://${MONGODB_USER}:${MONGODB_PASSWORD}@${MONGODB_URL}/${MONGODB_DB}?retryWrites=true&w=majority
+```
+
+### 5. Run the project:
 
 ```bash
 npm run dev
@@ -99,7 +126,7 @@ npm run dev
 
 ## 🌐️ Live Demo
 
-Check out the API documentation: [Money Guard API](https://money-guard-backend-ulen.onrender.com/api-docs/)
+Check out the live version of the backend API: [Money Guard API](https://money-guard-backend-ulen.onrender.com/api-docs/)
 
 ---
 
